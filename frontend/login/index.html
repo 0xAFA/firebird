@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <!-- Framework CSS Materialize  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Nunito|Raleway'><link rel="stylesheet" href="./style.css">
+  <!-- Estilos míos  -->
+  <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+<div class="row my-wrapper valign-wrapper">
+  <div class="col s12 l4 offset-l4">
+    <div class="card">
+      <div class="card-content">
+        <h4 class="card-title center-align">Log in</h4>
+        <form>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">email</i>
+              <input type="email" id="email" class="validate" />
+              <label for="email">Correo electrónico</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">vpn_key</i>
+              <input type="password" id="password" class="validate" />
+              <label for="email">Contraseña</label>
+            </div>
+          </div>
+          <div class="row center-align">            
+            <button type="button" id="acceder" class="btn waves-effect waves-light">Acceder
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";  
+const firebaseConfig = {  
+      apiKey: "AIzaSyC7FQzl3ers05n809FplN6ghejKrU0wFh4",  
+      authDomain: "firebirdbackend.firebaseapp.com",  
+      projectId: "firebirdbackend",  
+      storageBucket: "firebirdbackend.appspot.com",  
+      messagingSenderId: "362751348570",  
+      appId: "1:362751348570:web:fb21580d01aabcbc356d63",  
+      measurementId: "G-ZVXW3PC2X3"  
+    };
+    
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+
+var btn = document.getElementById("acceder")
+btn.addEventListener("click", redirect);
+
+function redirect() {
+  console.log("Log in correcto.");
+  email = document.getElementById("email").value;
+  password = document.getElementById("password").value;
+  signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    window.location.replace("../dashboard/dashboard.html");
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage);
+    alert("Usuario o contraseña incorrectos.");
+  });  
+}
+</script>
+</body>
