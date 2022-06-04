@@ -1,7 +1,7 @@
 # Firebird
 
 <p align="center">
-  <img width="460" height="300" src="images/logo.png">
+  <img src="images/logo.png">
 </p>
 
 Firebird recolecta todos los tweets publicados en España sobre un tema objetivo y los analiza con un sistema de procesamiento de lenguaje natural basado en Pytorch y HuggingFace. La información obtenida se almacena en Google Firestore y se muestra de forma gráfica.
