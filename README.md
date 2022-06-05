@@ -14,10 +14,6 @@ Firebird recolecta todos los tweets publicados en España sobre un tema objetivo
 
 Esta aplicación es la actividad final de la asignatura Proyecto de Big Data.
 
-**Nota**: el frontend de esta aplicación está todavía en desarrollo. Hay disponible una proof of concept en [este enlace](https://af2047.github.io/firebird-dashboard/login/). Las credenciales de acceso son:
-
-* **Usuario**: test1@fakeemail.com
-* **Contraseña**: prueba
 
 
 
