@@ -28,8 +28,11 @@
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
+
     <link href="../assets/css/demo.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+    integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+    crossorigin=""/>
 </head>
 
 <body>
@@ -142,21 +145,9 @@ color-on-scroll="500">
             <div class="container-fluid">
                 <div class="row"></div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">Nota</h4>
-                            </div>
-                            <div class="card-body">
-                                <p>El mapa no está disponible porque requiere una clave API.</p>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-12">
-                        <img src="../assets/img/ejemplo_mapa.png">
+                        <div id="map" style="height: 85vh; ">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -197,14 +188,150 @@ Firebird. Plantilla Light Bootstrap Dashboard de <a href="http://www.creative-ti
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/js/demo.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initGoogleMaps();
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+crossorigin=""></script>
 
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";  
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+    import { getFirestore, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+   
+    const firebaseConfig = {  
+      apiKey: "AIzaSyC7FQzl3ers05n809FplN6ghejKrU0wFh4",  
+      authDomain: "firebirdbackend.firebaseapp.com",  
+      projectId: "firebirdbackend",  
+      storageBucket: "firebirdbackend.appspot.com",  
+      messagingSenderId: "362751348570",  
+      appId: "1:362751348570:web:fb21580d01aabcbc356d63",  
+      measurementId: "G-ZVXW3PC2X3"  
+    };
+    
+    const app = initializeApp(firebaseConfig);  
+    const analytics = getAnalytics(app);
+
+    // Autentificación de usuarios
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("Usuario" + user.uid + "logueado");
+        const uid = user.uid;        
+    } else {
+        // Si estamos aquí, el usuario no está logueado
+        console.log("Usuario no logueado");
+        console.log("Redirigiendo a página de login");        
+        window.location.replace("../login/index.html");
+    }
     });
-</script>
+
+    // Provincias y latitudes
+    const coords = {"a coru\u00f1a":{"latitud":43.37012643,"longitud":-8.39114853},"albacete":{"latitud":38.99588053,"longitud":-1.85574745},"alicante":{"latitud":38.34548705,"longitud":-0.4831832},"almeria":{"latitud":36.83892362,"longitud":-2.46413188},"avila":{"latitud":40.65586958,"longitud":-4.69771277},"badajoz":{"latitud":38.87874339,"longitud":-6.97099704},"barcelona":{"latitud":41.38424664,"longitud":2.17634927},"vizcaya":{"latitud":43.25721957,"longitud":-2.92390606},"burgos":{"latitud":42.34113004,"longitud":-3.70419805},"caceres":{"latitud":39.47316762,"longitud":-6.37121092},"cadiz":{"latitud":36.52171152,"longitud":-6.28414575},"castellon":{"latitud":39.98640809,"longitud":-0.03688142},"ceuta":{"latitud":35.88810209,"longitud":-5.30675127},"ciudad real":{"latitud":38.98651781,"longitud":-3.93131981},"cordoba":{"latitud":37.87954225,"longitud":-4.78032455},"cuenca":{"latitud":40.07653762,"longitud":-2.13152306},"girona":{"latitud":41.98186075,"longitud":2.82411899},"granada":{"latitud":37.17641932,"longitud":-3.60001883},"guadalajara":{"latitud":40.63435548,"longitud":-3.16210273},"huelva":{"latitud":37.26004113,"longitud":-6.95040588},"huesca":{"latitud":42.14062739,"longitud":-0.40842276},"jaen":{"latitud":37.7651913,"longitud":-3.7903594},"las palmas":{"latitud":28.099378545,"longitud":-15.413368411},"leon":{"latitud":42.59912097,"longitud":-5.56707631},"lerida":{"latitud":41.61527355,"longitud":0.62061934},"la rioja":{"latitud":42.46644945,"longitud":-2.44565538},"lugo":{"latitud":43.0091282,"longitud":-7.55817392},"madrid":{"latitud":40.40841191,"longitud":-3.68760088},"malaga":{"latitud":36.72034267,"longitud":-4.41997511},"melilla":{"latitud":35.294731,"longitud":-2.942281},"murcia":{"latitud":37.98436361,"longitud":-1.1285408},"ourense":{"latitud":42.33654919,"longitud":-7.86368375},"asturias":{"latitud":43.36232165,"longitud":-5.84372206},"palencia":{"latitud":42.0078373,"longitud":-4.53460106},"baleares":{"latitud":39.57114699,"longitud":2.65181698},"navarra":{"latitud":42.814102,"longitud":-1.6451528},"pontevedra":{"latitud":42.43381442,"longitud":-8.64799018},"salamanca":{"latitud":40.96736822,"longitud":-5.66538084},"gipuzkoa":{"latitud":43.31717158,"longitud":-1.98191785},"santa cruz de tenerife":{"latitud":28.462854082,"longitud":-16.247206286},"cantabria":{"latitud":43.46297885,"longitud":-3.80474784},"segovia":{"latitud":40.9498703,"longitud":-4.12524116},"sevilla":{"latitud":37.38620512,"longitud":-5.99251368},"soria":{"latitud":41.76327912,"longitud":-2.46624798},"tarragona":{"latitud":41.11910287,"longitud":1.2584219},"teruel":{"latitud":40.34412951,"longitud":-1.10927177},"toledo":{"latitud":39.85715187,"longitud":-4.02431421},"valencia":{"latitud":39.47534441,"longitud":-0.37565717},"valladolid":{"latitud":41.65232777,"longitud":-4.72334924},"alava":{"latitud":42.85058789,"longitud":-2.67275685},"zamora":{"latitud":41.49913956,"longitud":-5.75494831},"zaragoza":{"latitud":41.65645655,"longitud":-0.87928652}}
+    console.log(coords['a coruña'], coords['madrid'])
+    // Firestore
+    const db = getFirestore();
+    // Aquí auth.currentuser es null
+    const docRef = doc(db, "data", "total");
+    const docSnap = await getDoc(docRef);
+
+    // Después del await auth.currentuser ya está disponible
+    const docRef2 = doc(db, "data", auth.currentUser.uid);
+    const docSnap2 = await getDoc(docRef2);    
+    const lastUpdate = docSnap2.data().lastUpdate;
+    console.log("Last update:", lastUpdate);
+
+    const docRef3 = doc(db, "data", auth.currentUser.uid, "days", lastUpdate, "cities", "total")
+    const docSnap3 = await getDoc(docRef3);
+
+    const totalTweets = docSnap3.data()['pos'] + docSnap3.data()['neg'] + docSnap3.data()['neut']
+
+    var allCities = []
+    const querySnapshot = await getDocs(collection(db, "data", auth.currentUser.uid, "days", lastUpdate, "cities"));
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        allCities.push(doc.id)
+    });
+
+    const array = [2, 5, 9];
+
+    const index = allCities.indexOf("total");
+    if (index > -1) {
+        allCities.splice(index, 1); // 2nd parameter means remove one item only
+    }
+
+    console.log("All cities with info:",allCities);
+
+    // Nota: foreach NO funciona, usar for
+    var city;
+    var lineChartLabels = []
+    var lineChartPos = []
+    var lineChartNeg = []
+    var lineChartNeut = []
+    var cityObjects = []
+
+    for (city of allCities) {
+        var cityObj = {}
+        cityObj['latitud'] = coords[city]['latitud']
+        cityObj['longitud'] = coords[city]['longitud']
+        // console.log(city);
+        var docRefD = doc(db, "data", auth.currentUser.uid, "days", lastUpdate, "cities", city)
+        var docSnapD = await getDoc(docRefD);
+        var pos = docSnapD.data()['pos'];
+        var neg = docSnapD.data()['neg'];
+        var neut = docSnapD.data()['neut'];
+        var total = pos+neg+neut;
+
+        if (pos > neg) {
+            cityObj['color'] = 'green';
+            cityObj['fillColor'] = 'green';
+            cityObj['fillOpacity'] = pos / total;
+
+        } else if (pos < neg) {
+            cityObj['color'] = 'red';
+            cityObj['fillColor'] = 'red';
+            cityObj['fillOpacity'] = neg / total;
+
+        } else {
+            cityObj['color'] = 'yellow';
+            cityObj['fillColor'] = 'yellow';
+            cityObj['fillOpacity'] = neut / total;
+        }
+
+        cityObj['radius'] = total / totalTweets;
+
+        // Normalizar tamaños para que no haya círculos demasiado pequeños ni grandes
+        if(cityObj['radius'] < 0.007) {cityObj['radius'] = 0.007};
+        if(cityObj['radius'] > 0.1) {cityObj['radius'] = 0.1};
+
+        cityObj['popup'] = "<b>"+city.toUpperCase()+"</b><br><br>Positivos: "+pos+"<br>Negativos: "+neg+"<br>Neutros: "+neut
+
+        cityObjects.push(cityObj)
+    }
+
+    var map = L.map('map').setView([40.2085, -3.7130], 6);
+
+	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 10,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+    const baseRadius = 1000000;
+    
+    for (cityObj of cityObjects) {
+        var circle = L.circle([cityObj['latitud'], cityObj['longitud']], {
+        color: cityObj['color'],
+        fillColor: cityObj['fillColor'],
+        fillOpacity: cityObj['fillOpacity'],
+        radius: cityObj['radius']*baseRadius
+    }).addTo(map);
+
+    circle.bindPopup(cityObj["popup"])
+    }
+
+
+
+  </script>
+
 
 </html>

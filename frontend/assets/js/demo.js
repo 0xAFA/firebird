@@ -252,35 +252,6 @@ demo = {
 
         // lbd.startAnimationForLineChart(chartHours);
 
-        var data = {
-            labels: ['Día 1', 'Día 2', 'Día 3', 'Día 4', 'Día 5', 'Día 6', 'Hoy'],
-            series: [
-                [1, 5, 17, 14, 20, 23, 18],
-                [3, -14, -7, 16, 24, -8, -10]
-            ]
-        };
-
-        var options = {
-            seriesBarDistance: 10,
-            axisX: {
-                showGrid: false
-            },
-            height: "245px"
-        };
-
-        var responsiveOptions = [
-            ['screen and (max-width: 640px)', {
-                seriesBarDistance: 5,
-                axisX: {
-                    labelInterpolationFnc: function(value) {
-                        return value[0];
-                    }
-                }
-            }]
-        ];
-
-        var chartActivity = Chartist.Bar('#chartActivity', data, options, responsiveOptions);
-
         // lbd.startAnimationForBarChart(chartActivity);
 
         // /* ----------==========     Daily Sales Chart initialization    ==========---------- */

@@ -29,7 +29,7 @@
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
+
     <!-- <link href="../assets/css/demo.css" rel="stylesheet" /> -->
 </head>
 
@@ -143,7 +143,7 @@ color-on-scroll="500">
             <div class="content">
                 <div class="container-fluid">                   
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <div class="card ">
                                 <div class="card-header ">
                                     <h4 class="card-title">Sentimiento en Twitter en España</h4>
@@ -152,57 +152,9 @@ color-on-scroll="500">
                                 <div class="card-body ">
                                     <div id="chartHours" class="ct-chart"></div>
                                 </div>
-                                <!-- <div class="card-footer ">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Positivos
-                                        <i class="fa fa-circle text-danger"></i> Negativos
-                                        <i class="fa fa-circle text-warning"></i> Neutros
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-history"></i> Actualizado hace X minutos
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card strpied-tabled-with-hover">
-                                <div class="card-header ">
-                                    <h4 class="card-title">Trending Topics</h4>
-                                </div>
-                                <div class="card-body table-full-width table-responsive">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                            <th>Posición</th>
-                                            <th>Hashtag</th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Rodrygo</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Valverde</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>JIMIN OST</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Marina Ovsyannikova</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Crystal Palace</td>
-                                            </tr>                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -223,172 +175,13 @@ color-on-scroll="500">
                                     </div>
                                     <hr>
                                     <div class="stats">
-                                        <i class="fa fa-history"></i> Actualizado hace X minutos
+                                        <i class="fa fa-history"></i> Datos actualizados diariamente
                                     </div>
                                 </div>
                             </div>
                         </div>    
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-md-6">
-                            <div class="card ">
-                                <div class="card-header ">
-                                    <h4 class="card-title">2017 Sales</h4>
-                                    <p class="card-category">All products including Taxes</p>
-                                </div>
-                                <div class="card-body ">
-                                    <div id="chartActivity" class="ct-chart"></div>
-                                </div>
-                                <div class="card-footer ">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Tesla Model S
-                                        <i class="fa fa-circle text-danger"></i> BMW 5 Series
-                                    </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-check"></i> Data information certified
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card  card-tasks">
-                                <div class="card-header ">
-                                    <h4 class="card-title">Tasks</h4>
-                                    <p class="card-category">Backend development</p>
-                                </div>
-                                <div class="card-body ">
-                                    <div class="table-full-width">
-                                        <table class="table">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="" checked>
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="" checked>
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                                    </td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" checked>
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="">
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Read "Following makes Medium better"</td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <div class="form-check">
-                                                            <label class="form-check-label">
-                                                                <input class="form-check-input" type="checkbox" value="" disabled>
-                                                                <span class="form-check-sign"></span>
-                                                            </label>
-                                                        </div>
-                                                    </td>
-                                                    <td>Unfollow 5 enemies from twitter</td>
-                                                    <td class="td-actions text-right">
-                                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-info btn-simple btn-link">
-                                                            <i class="fa fa-edit"></i>
-                                                        </button>
-                                                        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-link">
-                                                            <i class="fa fa-times"></i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer ">
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="now-ui-icons loader_refresh spin"></i> Updated 3 minutes ago
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+
                 </div>
             </div>
             <footer class="footer">
@@ -502,16 +295,129 @@ color-on-scroll="500">
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/js/demo.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
 
-        demo.showNotification();
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";  
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+    import { getFirestore, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+   
+    const firebaseConfig = {  
+      apiKey: "AIzaSyC7FQzl3ers05n809FplN6ghejKrU0wFh4",  
+      authDomain: "firebirdbackend.firebaseapp.com",  
+      projectId: "firebirdbackend",  
+      storageBucket: "firebirdbackend.appspot.com",  
+      messagingSenderId: "362751348570",  
+      appId: "1:362751348570:web:fb21580d01aabcbc356d63",  
+      measurementId: "G-ZVXW3PC2X3"  
+    };
+    
+    const app = initializeApp(firebaseConfig);  
+    const analytics = getAnalytics(app);
 
+    // Autentificación de usuarios
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+        console.log("Usuario" + user.uid + "logueado");
+        const uid = user.uid;        
+    } else {
+        // Si estamos aquí, el usuario no está logueado
+        console.log("Usuario no logueado");
+        console.log("Redirigiendo a página de login");        
+        window.location.replace("../login/index.html");
+    }
     });
-</script>
+
+    // Firestore
+    const db = getFirestore();
+    // Aquí auth.currentuser es null
+    const docRef = doc(db, "data", "total");
+    const docSnap = await getDoc(docRef);
+
+    // Después del await auth.currentuser ya está disponible
+    const docRef2 = doc(db, "data", auth.currentUser.uid);
+    const docSnap2 = await getDoc(docRef2);    
+    const lastUpdate = docSnap2.data().lastUpdate;
+    console.log("Last update:", lastUpdate);
+
+    const docRef3 = doc(db, "data", auth.currentUser.uid, "days", lastUpdate, "cities", "total")
+    const docSnap3 = await getDoc(docRef3);
+
+    var allDays = []
+    const querySnapshot = await getDocs(collection(db, "data", auth.currentUser.uid, "days"));
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+        allDays.push(doc.id)
+    });
+    allDays.sort()
+
+    console.log("All info available:",allDays);
+
+    // Nota: foreach NO funciona, usar for
+    var day;
+    var lineChartLabels = []
+    var lineChartPos = []
+    var lineChartNeg = []
+    var lineChartNeut = []
+    var totalSentiment = []
+    var campaignSentiment = []
+
+    for (day of allDays) {
+        // console.log(user.id, " => ", user.data());
+        var docRefD = doc(db, "data", "total", "days", day, "cities", "total")
+        var docSnapD = await getDoc(docRefD);
+        var docRefC = doc(db, "data", auth.currentUser.uid, "days", day, "cities", "total")
+        var docSnapC = await getDoc(docRefC);
+        lineChartLabels.push(day)
+        lineChartPos.push(docSnapD.data()['pos']/1000000)
+        lineChartNeg.push(docSnapD.data()['neg']/1000000)
+        lineChartNeut.push(docSnapD.data()['neut']/1000000)
+        totalSentiment.push( (docSnapD.data()['pos'] - docSnapD.data()['neg']) / (docSnapD.data()['pos'] + docSnapD.data()['neg'] + docSnapD.data()['neut']))
+        campaignSentiment.push( (docSnapC.data()['pos'] - docSnapC.data()['neg']) / (docSnapC.data()['pos'] + docSnapC.data()['neg'] + docSnapC.data()['neut']))
+
+    }
+    
+    const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+    const avgCampaignSentiment = average(campaignSentiment)
+    const campaignVSBaseline = campaignSentiment.map(x => x-campaignSentiment) 
+    console.log(campaignVSBaseline)
+
+    var chartHours = Chartist.Line('#chartHours', {
+            labels: lineChartLabels,
+            series: [lineChartPos, lineChartNeg, lineChartNeut]
+    });
+
+    var data = {
+        labels: allDays,
+        series: [
+            totalSentiment,
+            campaignVSBaseline
+        ]
+    };
+
+    var options = {
+        seriesBarDistance: 10,
+        axisX: {
+            showGrid: false
+        },
+        height: "245px"
+    };
+
+    var responsiveOptions = [
+        ['screen and (max-width: 640px)', {
+            seriesBarDistance: 5,
+            axisX: {
+                labelInterpolationFnc: function(value) {
+                    return value[0];
+                }
+            }
+        }]
+    ];
+
+    var chartActivity = Chartist.Bar('#chartActivity', data, options, responsiveOptions);
+
+  </script>
 
 </html>

@@ -29,7 +29,7 @@
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
+
     <!-- <link href="../assets/css/demo.css" rel="stylesheet" /> -->
 </head>
 
@@ -143,7 +143,7 @@
                         <div class="col-md-4">
                             <div class="card ">
                                 <div class="card-header ">
-                                    <h4 class="card-title">Tweets del 15 de marzo</h4>
+                                    <h4 class="card-title">Tweets diarios</h4>
                                     <p class="card-category"></p>
                                 </div>
                                 <div class="card-body ">
@@ -157,7 +157,7 @@
                                     </div>
                                     <hr>
                                     <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Actualizado hace X minutos
+                                        <i class="fa fa-clock-o"></i> Datos actualizados diariamente
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
                                     </div>
                                     <hr>
                                     <div class="stats">
-                                        <i class="fa fa-history"></i> Actualizado hace X minutos
+                                        <i class="fa fa-history"></i> Datos actualizados diariamente
                                     </div>
                                 </div>
                             </div>
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="typography-line text-right">
-                                        <h2>1183</h2>
+                                        <h2 id="tweetsDiarios">Cargando...</h2>
                                     </div>
                                 </div>
                             </div>
@@ -207,7 +207,7 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="typography-line text-right">
-                                        <h2>3</h2>
+                                        <h2 id="diasCampana">Cargando...</h2>
                                     </div>
                                 </div>
                             </div>
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="card-body ">
                                     <div class="typography-line text-right">
-                                        <h2>2524</h2>
+                                        <h2 id="tweetsTotal">Cargando...</h2>
                                     </div>
                                 </div>
                             </div>
@@ -261,18 +261,15 @@
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="../assets/js/light-bootstrap-dashboard.js?v=2.0.0 " type="text/javascript"></script>
-<!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
 <script src="../assets/js/demo.js"></script>
 
 
-<!-- Cosas de Firebase -->
+
 <script type="module">
-      
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";  
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
-
+    import { getFirestore, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
    
     const firebaseConfig = {  
       apiKey: "AIzaSyC7FQzl3ers05n809FplN6ghejKrU0wFh4",  
@@ -296,48 +293,67 @@
     } else {
         // Si estamos aquí, el usuario no está logueado
         console.log("Usuario no logueado");
-        console.log("Redirigiendo a página de login")
-        
+        console.log("Redirigiendo a página de login");        
         window.location.replace("../login/index.html");
     }
     });
 
     // Firestore
-
     const db = getFirestore();
     // Aquí auth.currentuser es null
-    const docRef = doc(db, "public", "total");
+    const docRef = doc(db, "data", "total");
     const docSnap = await getDoc(docRef);
+
     // Después del await auth.currentuser ya está disponible
-    if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-    } else {
-    // El documento no existe
-    console.log("No such document!");
-    }  
+    const docRef2 = doc(db, "data", auth.currentUser.uid);
+    const docSnap2 = await getDoc(docRef2);    
+    const lastUpdate = docSnap2.data().lastUpdate;
+    console.log("Last update:", lastUpdate);
 
-    const docRef2 = doc(db, "public", auth.currentUser.uid);
-    const docSnap2 = await getDoc(docRef2);
+    const docRef3 = doc(db, "data", auth.currentUser.uid, "days", lastUpdate, "cities", "total")
+    const docSnap3 = await getDoc(docRef3);
 
-    if (docSnap2.exists()) {
-    console.log("Document data:", docSnap2.data());
-    } else {
-    // El documento no existe
-    console.log("No such document!");
-    }  
+    var allDays = []
+    const querySnapshot = await getDocs(collection(db, "data", auth.currentUser.uid, "days"));
+    querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+        allDays.push(doc.id)
+    });
+    allDays.sort()
 
-    demo.initDashboardPageCharts();
+    console.log("All info available:",allDays);
 
-    demo.showNotification();
+    // Nota: foreach NO funciona, usar for
+    var day;
+    var lineChartLabels = []
+    var lineChartPos = []
+    var lineChartNeg = []
+    var lineChartNeut = []
+
+    for (day of allDays) {
+        // console.log(user.id, " => ", user.data());
+        var docRefD = doc(db, "data", auth.currentUser.uid, "days", day, "cities", "total")
+        var docSnapD = await getDoc(docRefD);
+        lineChartLabels.push(day)
+        lineChartPos.push(docSnapD.data()['pos'])
+        lineChartNeg.push(docSnapD.data()['neg'])
+        lineChartNeut.push(docSnapD.data()['neut'])
+    }
+
+    Chartist.Pie('#chartPreferences', {
+            labels: [docSnap3.data()['pos'], docSnap3.data()['neg'], docSnap3.data()['neut']],
+            series: [docSnap3.data()['pos'], docSnap3.data()['neg'], docSnap3.data()['neut']]
+    });
+
+    var chartHours = Chartist.Line('#chartHours', {
+            labels: lineChartLabels,
+            series: [lineChartPos, lineChartNeg, lineChartNeut]
+    });
+
+    document.getElementById("tweetsDiarios").textContent = docSnap3.data()['pos']+docSnap3.data()['neg']+docSnap3.data()['neut'];
+    document.getElementById("diasCampana").textContent = allDays.length;
+    document.getElementById("tweetsTotal").textContent = lineChartPos.concat(lineChartNeut).concat(lineChartNeg).reduce((a,b)=>a+b);
 
   </script>
-
-    <script type="text/javascript">
-        $(document).ready(function() {
-            // Javascript method's body can be found in assets/js/demos.js
-
-
-        });
-    </script>
 
 </html>
