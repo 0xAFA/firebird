@@ -380,8 +380,10 @@ color-on-scroll="500">
     }
     
     const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+    console.log(campaignSentiment)
     const avgCampaignSentiment = average(campaignSentiment)
-    const campaignVSBaseline = campaignSentiment.map(x => x-campaignSentiment) 
+    console.log(avgCampaignSentiment)
+    const campaignVSBaseline = campaignSentiment.map(x => x-avgCampaignSentiment) 
     console.log(campaignVSBaseline)
 
     var chartHours = Chartist.Line('#chartHours', {
